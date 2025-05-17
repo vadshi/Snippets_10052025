@@ -20,3 +20,7 @@ def snippets_page(request):
         'snippets': snippets
         }
     return render(request, 'pages/view_snippets.html', context)
+
+
+def snippet_detail(request, snippet_id):
+    pass
