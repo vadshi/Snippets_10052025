@@ -1,5 +1,4 @@
-from django.http import Http404, HttpResponse, HttpResponseNotAllowed
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from MainApp.forms import SnippetForm
 from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
@@ -47,3 +46,16 @@ def snippet_detail(request, snippet_id: int):
     else:
         context['snippet'] = snippet
         return render(request, 'pages/snippet_detail.html', context)
+
+
+def snippet_delete(request, snippet_id: int):
+    if request.method == "GET" or request.method == "POST":
+        # Найти snippet по snippet_id или вернуть ошибку 404
+        snippet = get_object_or_404(Snippet, id=snippet_id)
+        snippet.delete() # Удаляем сниппет из базы
+
+    return redirect("snippets-list")
+
+
+def snippet_edit(request, snippet_id: int):
+    pass

@@ -18,5 +18,55 @@
         "code": "print(\"Second\")",
         "creation_date": "2025-05-17T07:56:04.017Z"
     }
+},
+{
+    "model": "MainApp.snippet",
+    "pk": 3,
+    "fields": {
+        "name": "New snippet",
+        "lang": "py",
+        "code": "print(\"New snippet\")",
+        "creation_date": "2025-05-17T11:15:02.552Z"
+    }
+},
+{
+    "model": "MainApp.snippet",
+    "pk": 4,
+    "fields": {
+        "name": "python snippet",
+        "lang": "py",
+        "code": "print(\"New snippet\")",
+        "creation_date": "2025-05-17T11:17:00.157Z"
+    }
+},
+{
+    "model": "MainApp.snippet",
+    "pk": 5,
+    "fields": {
+        "name": "four",
+        "lang": "js",
+        "code": "a === 5",
+        "creation_date": "2025-05-17T11:17:51.480Z"
+    }
+},
+{
+    "model": "MainApp.snippet",
+    "pk": 6,
+    "fields": {
+        "name": "five snippet",
+        "lang": "go",
+        "code": "func main() {}",
+        "creation_date": "2025-05-17T11:27:49.133Z"
+    }
+},
+{
+    "model": "MainApp.snippet",
+    "pk": 7,
+    "fields": {
+        "name": "first html",
+        "lang": "html",
+        "code": "<head></head>",
+        "creation_date": "2025-05-17T11:44:31.028Z"
+    }
 }
 ]
