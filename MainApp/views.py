@@ -10,12 +10,23 @@ def index_page(request):
 
 
 def add_snippet_page(request):
-    form = SnippetForm()
-    context = {
-        'pagename': 'Добавление нового сниппета',
-        'form': form
-        }
-    return render(request, 'pages/add_snippet.html', context)
+    # Создаем пустую форму при запросе GET
+    if request.method == "GET":
+        form = SnippetForm()
+        context = {
+            'pagename': 'Добавление нового сниппета',
+            'form': form
+            }
+        return render(request, 'pages/add_snippet.html', context)
+    
+    # Получаем данные из формыи и на их основе создаем новый сниппет, сохраняя его в БД
+    if request.method == "POST":
+        form = SnippetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # GET /snippets/list
+            return redirect("snippets-list") # URL для списка сниппитов
+        return render(request, 'pages/add_snippet.html', context={"form": form})
 
 
 def snippets_page(request):
@@ -36,14 +47,3 @@ def snippet_detail(request, snippet_id: int):
     else:
         context['snippet'] = snippet
         return render(request, 'pages/snippet_detail.html', context)
-
-
-def create_snippet(request):
-    if request.method == "POST":
-        form = SnippetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("snippets-list") # URL для списка сниппитов
-        return render(request, 'pages/add_snippet.html', context={"form": form})
-        
-    return HttpResponseNotAllowed(["POST"],"You must make POST request to add snippet.")
