@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from MainApp.forms import SnippetForm
+from MainApp.forms import SnippetForm, UserRegistrationForm
 from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
@@ -64,6 +64,7 @@ def snippet_detail(request, snippet_id: int):
         return render(request, 'pages/snippet_detail.html', context)
 
 
+@login_required
 def snippet_delete(request, snippet_id: int):
     if request.method == "GET" or request.method == "POST":
         # Найти snippet по snippet_id или вернуть ошибку 404
@@ -110,7 +111,23 @@ def login(request):
     return redirect('home')
 
 
-
 def logout(request):
     auth.logout(request)
     return redirect(to='home')
+
+
+def create_user(request):
+    context = {'pagename': 'Регистрация нового пользователя'}
+    # Создаем пустую форму при запросе GET
+    if request.method == "GET":
+        form = UserRegistrationForm()
+    
+    # Получаем данные из формыи и на их основе создаем нового пользователя, сохраняя его в БД
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("home") # URL для списка сниппитов
+
+    context["form"] = form    
+    return render(request, 'pages/registration.html', context)
